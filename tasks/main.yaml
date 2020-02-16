@@ -1,0 +1,17 @@
+---
+- name: "Fail if OS/Architecture is not supported"
+  fail:
+    msg: "Installing software-properties-common on {{ (ansible_os_family | lower) + '_' + (ansible_architecture | lower) }} is unsupported."
+  when:
+    - "(install_software_properties_common_packages | default({}))[(ansible_os_family | lower) + '_' + (ansible_architecture | lower)] is not defined"
+    - "software_properties_common is defined"
+  tags:
+    - "software-properties-common"
+- name: "Install software-properties-common"
+  package:
+    pkg: "{{ install_software_properties_common_packages[(ansible_os_family | lower) + '_' + (ansible_architecture | lower)] }}"
+    state: "present"
+  when:
+    - "software_properties_common is defined"
+  tags:
+    - "software-properties-common"
