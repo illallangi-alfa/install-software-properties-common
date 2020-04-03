@@ -1,7 +1,6 @@
 ---
 install_software_properties_common_packages:
-  centos: &centos
-  raspbian: &raspbian
+  debian: &debian
     - "software-properties-common"
-  debian_armv7l: *raspbian
-  redhat_x86_64: *centos
+  debian_armv7l: *debian
+  debian_x86_64: *debian
